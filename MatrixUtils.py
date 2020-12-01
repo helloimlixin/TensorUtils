@@ -58,7 +58,7 @@ def timeme(function):
 
     return wrapper
 
-@timeme
+# @timeme
 def kronecker(matrix1, matrix2):
     """Implementation of the Matrix Kronecker Product.
         It takes two nested lists as inputs and output the result of the Kronecker Product in a nested list.
@@ -95,19 +95,75 @@ def kronecker(matrix1, matrix2):
             
     return matrix
 
-def print_matrix(matrix):
-    '''
-    Description:
-        Helper function to print out a 2-dimensional matrix.
+@timeme
+def khatri_rao(matrix1, matrix2):
+    """Implementation of the matrix Khatri-Rao Product.
+    The function takes two nested lists as input matrices and output another nested list as the resulting matrix.
+    Note here the input matrices are identical in the column size and by computing the columnwise Kronecker Product,
+    the resulting matrix has also the same column size.
+
     Args:
-        matrix: a nested list [[], [], ...] representing a 2-dimensional matrix
+        matrix1 ([[], [], ...]): a nested list representing an I x K matrix.
+        matrix2 ([[], [], ...]): a nested list representing a J x K matrix.
+
     Returns:
-        None
-    '''
+        [[], [], ...]: a nested list representing an (IJ) x K matrix.
+    """
+    if len(matrix1[0]) != len(matrix2[0]):
+        print("The column dimensions of the two input matrices must be identical!")
+        return
+    
+    I = len(matrix1)
+    J = len(matrix2)
+    K = len(matrix1[0]) # column size of input matrices
+    column_list = []
+    matrix = []
+    row = []
+
+    for i in range(K):
+        col1 = get_column(matrix1, i)
+        col2 = get_column(matrix2, i)
+        col = kronecker(col1, col2)
+        column_list.append(col)
+    
+    row_idx = 0
+    for _ in range(I * J):
+        for i in range(K):
+            row.append(column_list[i][row_idx][0])
+        matrix.append(row)
+        row_idx += 1
+        row = []
+
+    return matrix
+
+def get_column(matrix, col_idx):
+    """Helper function to extract a column from a nested-list structure matrix, specified by the column index.
+
+    Args:
+        matrix ([[], [], ...]): nested list representing the input matrix
+        col_idx (integer): index of the column of interest
+
+    Returns:
+        [[]]: nested list representing the column, the structure is chosen for the sake of Kronecker Product.
+    """
+    column = []
+    for row in matrix:
+        column.append([row[col_idx]])
+
+    return column
+
+def print_matrix(matrix):
+    """Helper function to print out a 2-dimensional matrix.
+    Args:
+        matrix ([[], [], ...]): a nested list representing a 2-dimensional matrix
+    """
+    if matrix is None:
+        return
     for row in matrix:
         print(row)
 
 if __name__ == '__main__':
-    A = [[1, 2, 3], [3, 2, 1]]
-    B = [[2, 1], [2, 3]]
+    A = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    B= [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
     print_matrix(kronecker(A, B))
+    print_matrix(khatri_rao(A, B))
