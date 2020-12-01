@@ -1,17 +1,43 @@
+#
+# Created on Tue Dec 01 2020
+#
+# The MIT License (MIT)
+# Copyright (c) 2020 Xin Li
+# Insitution: Department of Electrical and Computer Engineering, Rutgers University New Brunswick
+# Email: xl598@scarletmail.rutgers.edu
+# Personal Website: helloimlixin.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+# and associated documentation files (the "Software"), to deal in the Software without restriction,
+# including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all copies or substantial
+# portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+# TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
 def kronecker(matrix1, matrix2):
-    '''
-    Description:
-        Implementation of the Matrix Kronecker Product.
+    """Implementation of the Matrix Kronecker Product.
         It takes two nested lists as inputs and output the result of the Kronecker Product in a nested list.
         The algorithm is essentially computing the output matrix row by row.
 
-        Inspired by Rosetta Code implementation: https://rosettacode.org/wiki/Kronecker_product#Python
+        Inspired by Rosetta Code implementation: https://rosettacode.org/wiki/Kronecker_product#Python.
+
+        Reference: https://archive.siam.org/books/textbooks/OT91sample.pdf.
+
     Args:
-        matrix1: a nested list [[], [], ...] representing an M x N matrix
-        matrix2: a nested list [[], [], ...] representing a P x Q matrix
+        matrix1 ([[], [], ...]): a nested list representing an I x K matrix
+        matrix2 ([[], [], ...]): a nested list representing a J x L matrix
+
     Returns:
-        matrix: [[], [], [], ...]
-    '''
+        nested list [[], [], ...]: a nested list representing the output matrix
+    """
 
     # Initialize the output matrix.
     matrix = [] # output matirx
