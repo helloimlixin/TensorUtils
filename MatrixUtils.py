@@ -22,6 +22,43 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import time
+
+def timeme(function):
+    """Helper annotation function for performance measure.
+
+    Contains a wrapper function that computes method runtime by seconds.
+
+    Args:
+        function: function to annotate for time measure.
+
+    Returns:
+        wrapper: a wrapper function for time measure.
+    """
+
+    def wrapper(*args, **kwargs):
+        """Wrapper function to compute function runtime.
+
+        Uses time library.
+
+        Args:
+            *args: non-keyworded variable length argument list passed to the
+            wrapper function.
+            **kwargs: keyworded variable length argument list passed to the
+            wrapper function.
+
+        Returns:
+            result: execution time in seconds.
+        """
+        start_time = time.time() * 1000
+        result = function(*args, **kwargs)
+        end_time = time.time() * 1000
+        print("Execution time: {}".format((end_time - start_time) / 1000))
+        return result
+
+    return wrapper
+
+@timeme
 def kronecker(matrix1, matrix2):
     """Implementation of the Matrix Kronecker Product.
         It takes two nested lists as inputs and output the result of the Kronecker Product in a nested list.
