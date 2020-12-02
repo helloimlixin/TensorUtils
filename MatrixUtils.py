@@ -136,6 +136,32 @@ def khatri_rao(matrix1, matrix2):
 
     return matrix
 
+def hadamard(matrix1, matrix2):
+    """Implementation of Hadamard Product.
+
+    Args:
+        matrix1 ([[], [], ...]): a nested list representing an I x J matrix
+        matrix2 ([[], [], ...]): a nested list representing an I x J matrix.
+
+    Returns:
+        [[], [], ...]: a nested list representing the I x J output matrix
+    """
+    if len(matrix1) != len(matrix2) or len(matrix1[0]) != len(matrix2[0]):
+        print("The two input matrices must have the same input dimension!")
+        return
+    
+    I, J = len(matrix1), len(matrix1[0]) # compute the dimension of the input matrices
+    matrix = [] # initialize a matrix with the same size as the input matrices
+    sub_list = []
+
+    for i in range(I):
+        for j in range(J):
+            sub_list.append(matrix1[i][j] * matrix2[i][j])
+        matrix.append(sub_list)
+        sub_list = []
+
+    return matrix
+
 def get_column(matrix, col_idx):
     """Helper function to extract a column from a nested-list structure matrix, specified by the column index.
 
@@ -163,7 +189,10 @@ def print_matrix(matrix):
         print(row)
 
 if __name__ == '__main__':
-    A = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-    B= [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
-    print_matrix(kronecker(A, B))
-    print_matrix(khatri_rao(A, B))
+    A1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    B1 = [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+    A2 = [[1, 2], [3, 4]]
+    B2 = [[5, 6], [7, 8]] 
+    # print_matrix(kronecker(A1, B1))
+    # print_matrix(khatri_rao(A1, B1))
+    print_matrix(hadamard(A2, B2))
