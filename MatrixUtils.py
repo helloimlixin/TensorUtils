@@ -58,6 +58,40 @@ def timeme(function):
 
     return wrapper
 
+def transpose(matrix):
+    """Implementation of the transpose of a matrix.
+
+    Args:
+        matrix ([[], [], ...]): a nested list representing a matrix
+
+    Returns:
+        [[], [], ...]: a nested list representing the transposed matrix
+    """
+    transposed_matrix = []
+    if matrix is None:
+        return
+    for i in range(len(matrix[0])):
+        transposed_matrix.append(get_column(matrix, i))
+    
+    return transposed_matrix
+
+def dot_product(matrix1, matrix2):
+    matrix = []
+    sub_list = []
+    element = 0
+    for row1 in matrix1:
+        for col2_idx in range(len(matrix2[0])):
+            col2 = get_column(matrix2, col2_idx)
+            for i in range(len(row1)):
+                element += row1[i] * col2[i][0]
+            sub_list.append(element)
+            element = 0
+        matrix.append(sub_list)
+        sub_list = []
+    
+    return matrix
+            
+
 # @timeme
 def kronecker(matrix1, matrix2):
     """Implementation of the Matrix Kronecker Product.
@@ -138,6 +172,7 @@ def khatri_rao(matrix1, matrix2):
 
 def hadamard(matrix1, matrix2):
     """Implementation of Hadamard Product.
+    The essential idea of the Hadmard Product is the matrix pairwise product.
 
     Args:
         matrix1 ([[], [], ...]): a nested list representing an I x J matrix
@@ -192,7 +227,13 @@ if __name__ == '__main__':
     A1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     B1 = [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
     A2 = [[1, 2], [3, 4]]
-    B2 = [[5, 6], [7, 8]] 
+    B2 = [[5, 6], [7, 8]]
+    A3 = [[1, 0], [0, 1]]
+    B3 = [[4, 1], [2, 2]]
+    A4 = [[2, 1], [0, 3]]
+    B4 = [[1, 1], [3, 2]]
     # print_matrix(kronecker(A1, B1))
     # print_matrix(khatri_rao(A1, B1))
-    print_matrix(hadamard(A2, B2))
+    # print_matrix(hadamard(A2, B2))
+    # print_matrix(transpose(A2))
+    print_matrix(dot_product(A4, B4))
