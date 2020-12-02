@@ -76,6 +76,21 @@ def transpose(matrix):
     return transposed_matrix
 
 def dot_product(matrix1, matrix2):
+    """Implementation of the matrix dot product.
+
+    Args:
+        matrix1 ([[], [], ...]): a nested list representing an M x N matrix
+        matrix2 ([[], [], ...]): a nested list representing an N x P matrix
+
+    Returns:
+        [[], [], ...]: a nested list representing the resulting M x P matrix
+    """
+    if matrix1 is None or matrix2 is None:
+        return
+    if len(matrix1) != len(matrix2[0]):
+        print("The row dimension of the first matrix must match with the column dimension of the second matrix!")
+        return
+
     matrix = []
     sub_list = []
     element = 0
